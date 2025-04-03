@@ -1,3 +1,4 @@
+// script.js
 document.addEventListener('DOMContentLoaded', function() {
   // Function to get the value of a cookie by name
   function getCookie(name) {
@@ -14,10 +15,28 @@ document.addEventListener('DOMContentLoaded', function() {
       name + '=' + value + ';expires=' + date.toUTCString() + ';path=/';
   }
 
-  // 1. Get the value of the 'count' cookie
-  // 2. If the cookie exists, increment the value and update the cookie
-  // 3. If the cookie does not exist, create it and set the value to 1
-  // 4. Display the count on the webpage
+  // Function to increment the count
+  function incrementCount() {
+    let count = getCookie('count');
+    if (count === null) {
+      count = 1;
+    } else {
+      count = parseInt(count) + 1;
+    }
+    setCookie('count', count, 30); // expires in 30 days
+    return count;
+  }
 
-  // your code here
+  // Display the count on the webpage
+  function displayCount() {
+    let count = getCookie('count');
+    if (count === null) {
+      count = 0;
+    }
+    document.getElementById('countDisplay').innerText = `Page views for this session: ${count}`;
+  }
+
+  // Initialize the count
+  let count = incrementCount();
+  displayCount();
 });
